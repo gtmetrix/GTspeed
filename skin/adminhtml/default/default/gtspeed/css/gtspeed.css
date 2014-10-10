@@ -1,0 +1,40 @@
+/* GTspeed */
+.gtspeed h5 { color: #6f8992; margin-bottom: 10px; }
+.gtspeed hr {  background-color: #d0d0d0; color: #d0d0d0; border: none; height: 1px; margin: 10px 0; }
+
+.gtspeed_l { width: 65%; }
+.gtspeed .left_col, .gtspeed .right_col { display: inline-block; vertical-align: top; }
+.gtspeed .left_col { margin-right: 75px; }
+.gtspeed .italic { font-style: italic; }
+.gtspeed .bold { font-weight: bold; }
+.gtspeed .red { color: red; }
+.gtspeed .green { color: green; }
+.gtspeed .grey { color: #888; }
+.gtspeed .orange { color: #f77812; }
+.gtspeed .ltgreen { color: #4eb047; }
+.gtspeed .ltred { color: #fa4c4c; }
+.gtspeed .dkgrey { color: #454545; }
+.gtspeed .gt-logo { vertical-align: middle; padding-right: 10px; }
+
+.gtspeed .col2 { padding-left: 50px; }
+.gtspeed .fade { -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)"; filter: alpha(opacity=50); opacity: 0.5; }
+
+/* Image Optimization */
+.gtspeed .img_opt .left_col { width: 50%; }
+.gtspeed .img_opt select { height: 20px; padding: 0; margin: 0; }
+.gtspeed .img_opt .time { width: 40px; margin-left: 5px; margin-right: 5px; }
+
+
+/* GTspeed Savings */
+.gtspeed_savings td { padding-bottom: 7px; }
+.gtspeed_savings .saving { color: #4eb047; font-size: 2.2em; font-weight: bold; vertical-align: middle; padding-right: 10px; }
+.gtspeed_savings h5 { color: #444; font-size: 1.00em; }
+.gtspeed_savings p { color: #888; font-size: 0.9em; line-height: 1em; margin: 0; }
+
+/*Tooltip*/
+.tooltip { padding: 10px; background-color: #fff; border: 1px solid #6397CB; border-radius: 5px 5px 5px 5px; -moz-border-radius: 5px 5px 5px 5px; -webkit-border-radius: 5px 5px 5px 5px; }
+.tooltip .italic { font-style: italic; }
+.tooltip .bold { font-weight: bold; }
+.tooltip .red { color: red; }
+.tooltip .green { color: green; }
+.tooltip .gray { color: #888; }

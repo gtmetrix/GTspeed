@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <GT_Speed>
+            <active>true</active>
+            <codePool>community</codePool>
+        </GT_Speed>        
+    </modules>
+</config>

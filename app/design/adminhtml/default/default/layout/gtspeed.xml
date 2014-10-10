@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<layout>
+    <gtspeed_info_index>
+        <reference name="head">
+            <action method="addCss"><name>gtspeed/css/gtspeed.css</name></action>
+            <action method="addJs"><script>gtspeed/tooltip.js</script></action>
+        </reference>
+        <reference name="content">
+            <block type="adminhtml/template" name="gtspeed_info" template="gtspeed/info.phtml"/>
+        </reference>
+    </gtspeed_info_index>
+</layout>

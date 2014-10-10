@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+        <system>
+            <children>
+                <gt translate="title">
+                    <title>GT</title>
+                    <sort_order>120</sort_order>
+                    <children>
+                        <gtspeed module="gtspeed">
+                            <title>GTspeed</title>
+                            <action>gtspeed/info</action>
+                        </gtspeed>
+                    </children>
+                </gt>
+            </children>
+        </system>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <gtspeed translate="title">
+                                        <title>GTspeed</title>
+                                        <sort_order>100</sort_order>
+                                    </gtspeed>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <layout>
+        <updates>
+            <gtspeed>
+                <file>gtspeed.xml</file>
+            </gtspeed>
+        </updates>
+    </layout>
+</config>

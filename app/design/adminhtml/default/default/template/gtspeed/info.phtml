@@ -1,0 +1,184 @@
+<?php
+
+$num_unopt = Mage::getModel('gtspeed/image')->getCollection()->addOptimizedFilter(0)->getSize();
+
+$min_css = Mage::getStoreConfigFlag('gtspeed/cssjs/min_css');
+$min_js = Mage::getStoreConfigFlag('gtspeed/cssjs/min_js');
+$merge_css = Mage::getStoreConfigFlag('gtspeed/cssjs/merge_css');
+$merge_js = Mage::getStoreConfigFlag('gtspeed/cssjs/merge_js');
+
+?>
+<div class="content-header">
+    <table cellspacing="0" class="grid-header">
+        <tr>
+            <td><h3><?php echo $this->__('GTspeed Status'); ?></h3></td>
+        </tr>
+    </table>
+</div>
+<table class="gtspeed" width="100%" cellspacing="25">
+    <tbody>
+        <tr>
+            <td class="gtspeed_l" width=65%">
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4>Site Optimization</h4>
+                    </div>
+                    <fieldset>
+                        <p>GTspeed will optimize the HTML and page structure of your Magento site to improve the loading times. It's recommended that you turn each feature on one by one and test your site fully. You should also track how things improve at <a href="http://gtmetrix.com">GTmetrix.com</a>.</p>
+                        <h5>Current Settings</h5>
+                        <div class="left_col">
+                            <p>CSS Minification is <?php echo Mage::helper('gtspeed/html')->printSetting($min_css, 'mincss'); ?></p>
+                            <p>JavaScript Minification is <?php echo Mage::helper('gtspeed/html')->printSetting($min_js, 'minjs'); ?></p>
+                            <p><?php echo Mage::helper('gtspeed/html')->printExpiresSetting(); ?></p>
+                        </div>
+                        <div class="right_col">
+                            <p>CSS combining is <?php echo Mage::helper('gtspeed/html')->printDependSetting($min_css, $merge_css, 'mergecss', '<span class=\'bold\'>CSS Minification</span> needs to be enabled first!'); ?></p>
+                            <p>JavaScript combining is <?php echo Mage::helper('gtspeed/html')->printDependSetting($min_js, $merge_js, 'mergejs', '<span class=\'bold\'>JavaScript Minification</span> needs to be enabled first!'); ?></p>
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="entry-edit img_opt">
+                    <div class="entry-edit-head">
+                        <h4>Image Optimization</h4>
+                    </div>
+                    <fieldset>
+                        <p>GTspeed will utilize image optimization programs to make sure all images are as small as possible without affecting the look and feel of the image.</p>
+                        <p><span class="italic"><span class="bold red">Note:</span> Make sure your images have 'Write' permissions enabled, as GTspeed will overwrite your images with optimized images.</span></p>
+                        <hr />
+                        <div class="left_col">
+                            <h5>Image Summary</h5>
+                            <p>Total Images: <?php echo Mage::helper('gtspeed/html')->getTotalImages() ?></p>
+                            <p>Not Optimized: <?php echo Mage::helper('gtspeed/html')->getUnoptimizedImages() ?></p>
+                            <p>Space Savings: <?php echo Mage::helper('gtspeed/html')->getSpaceSavings() ?></p>
+                        </div>
+                        <div class="right_col">
+                            <h5>Schedule Task</h5>
+                            <form action="<?php echo Mage::getModel('adminhtml/url')->getUrl('gtspeed/info/schedule') ?>" method="post">
+                                <input type="hidden" name="form_key" value="<? echo $this->getFormKey(); ?>" />
+                                <?php echo Mage::helper('gtspeed/html')->printScheduleForm(); ?>
+                            </form>
+                        </div>
+                        <hr />
+                        <button onclick="batch_process('update')" class="scalable" type="button"><span>Update Image Library</span></button>
+                        <button onclick="batch_process('optimize')" class="scalable save <?php echo (!$num_unopt) ? 'fade" disabled="disabled' : '' ?>" type="button"><span>Optimize Images</span></button>
+                    </fieldset>
+                </div>
+
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4>Advance Settings</h4>
+                    </div>
+                    <fieldset>
+                    <p>Power users can go to <a href="<?php echo Mage::getModel('adminhtml/url')->getUrl('adminhtml/system_config/edit/section/gtspeed') ?>">Advance Settings</a> to fine tune image optimizations.</p>
+                    </fieldset>
+                </div>
+            </td>
+
+            <td class="gtspeed_r"> 
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4>About GTspeed</h4>
+                    </div>
+                    <fieldset>
+                        <p>GTspeed was developed by <a href="http://www.gossamer-threads.com" target="_blank">Gossamer Threads Inc</a>. We offer performance tuning and managed Magento Hosting.</p>
+                        <p>From development to hosting, we partner with leading organizations around the globe and help to build their web presences, strategies and infrastructures.</p>
+                    </fieldset>
+                </div>
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4>Performance Monitoring</h4>
+                    </div>
+                    <fieldset>
+                        <table class="form-list" cellspacing="6">
+                            <tr>
+                                <td class="gt-logo"><img src="<?php echo $this->getSkinUrl('gtspeed/images/gtmetrix-logo-sm.png') ?>"/></td>
+                                <td><a href="http://gtmetrix.com/magento-optimization-guide.html" target="_blank">Monitor your performance with GTmetrix</a>.<br/>It can help you develop a faster, more efficient, and all-around improved Magento experience for your users.</td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+                <div class="entry-edit">
+                    <div class="entry-edit-head">
+                        <h4>Troubleshooting</h4>
+                    </div>
+                    <fieldset>
+                        <p><span style="font-weight: bold;">I enabled Minification and now my pages forever to load!</span><br />
+                            Your /var/mincache/ folder may not be writeable. GTspeed needs this folder to be writeable in order to save cached versions of your CSS and JavaScript.</p>
+                        <p>Try to set permissions to at least 755 on this directory, and file permissions to at least 644. </p>
+                        <p><span style="font-weight: bold;">I enabled Minification and my pages have no style or my JavaScript functions fail!</span><br />
+                            Make sure the files in the /min/ directory as well as the folder itself are readable(at least 644) by your webserver.</p>
+                        <p>Another reason why this issue might occur is that your JS/CSS files maybe improperly coded (invalid syntax, formatting, @import existing outside the top, etc). Check your CSS files with a CSS validator or your JS files with JSHint to make sure there are no major errors.</p>
+                        <p><span style="font-weight: bold;">Optimizing images doesn't work!</span><br />
+                            You may not have enough PHP memory available to your server. Increase the limit through your php.ini or .htaccess file or contact your host to have it increased for you. </p>
+                        <p>Alternatively, you may have to set permissions of the utilities that GTspeed uses for image optimization. These are located in /lib/gtspeed. If this is the case, GTspeed should alert you accordingly.</p>
+                        <p><a href="http://gtmetrix.com/magento-optimization-guide.html" target="_blank">More troubleshooting tips</a></p>
+                    </fieldset>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<script>
+
+function ajax_loader_print(msg) {
+    var loadermsg = '<p class="loader" id="loading_mask_loader"><img src="<?php echo $this->getSkinUrl('images/ajax-loader-tr.gif') ?>" alt="<?php echo Mage::helper('adminhtml')->__('Loading...') ?>"/><br/>'+ msg +'</p>';
+    
+    $('loading-mask').innerHTML = loadermsg;
+}
+
+function batch_process(parm) {
+    var response = true;
+    if (parm === "optimize")
+        response = confirm("This operation may take a long time. Continue?");
+
+    if (response === true) {
+        var params = {};
+        params['do'] = parm;
+        new Ajax.Request('<?php echo Mage::getModel('adminhtml/url')->getUrl('gtspeed/info/batch') ?>', {
+            method: 'get',
+                parameters: params,
+                onCreate: function (request) {
+                    if (parm === "update")
+                        ajax_loader_print("Updating existing images...");
+                    if (parm === "optimize")
+                        ajax_loader_print("Optimizing images...");
+                },
+                    onSuccess: function(transport) {
+                        var data = transport.responseText;
+                        data = data.evalJSON();
+                        ajax_loader_print(data.progress);
+                        if (data.next && data.next !== "done") {
+                            batch_process(data.next);
+                        } else {
+                            window.location.reload();
+                        }
+
+                    }
+        });
+    }
+}
+
+Event.observe(window,"load",function() {
+    $$("*").findAll(function(node){
+        return node.getAttribute('title');
+    }).each(function(node){
+        new Tooltip(node,node.title);
+        node.removeAttribute("title");
+    });
+});
+
+
+$$('.gtspeed .img_opt input[type="checkbox"]').invoke('observe', 'click', function(field) {
+    if(this.checked) {
+        $$('.gtspeed .img_opt select').each(function(e) {
+            e.enable();
+        });
+    } else {
+        $$('.gtspeed .img_opt select').each(function(e) {
+            e.disable();
+        });
+    }
+});
+
+</script>
