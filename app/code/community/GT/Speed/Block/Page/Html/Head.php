@@ -118,7 +118,7 @@ class GT_Speed_Block_Page_Html_Head extends Mage_Page_Block_Html_Head {
         foreach ( $skinItems as $params => $rows ) {
             foreach ( $rows as $name ) {
                 $items[$params][] = $mergeCallback ? Mage::getBaseDir() . substr( $this->getSkinUrl( $name ), strpos( $this->getSkinUrl( $name ), '/skin' ) ) 
-                    : Mage::getBaseDir() .$designPackage->getSkinUrl( $name, array( ) );
+                    : $designPackage->getSkinUrl( $name, array( ) );
             }
         }
 
